@@ -32,6 +32,5 @@ RSpec.describe 'Landing Page' do
             expect(page).to have_content(user1.email)
             expect(page).to have_content(user2.email)
         end     
-
     end 
 end
