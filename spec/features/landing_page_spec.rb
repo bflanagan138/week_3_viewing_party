@@ -5,6 +5,7 @@ RSpec.describe 'Landing Page' do
         user1 = User.create(name: "User One", email: "user1@test.com", password: 'test1234')
         user2 = User.create(name: "User Two", email: "user2@test.com", password: 'pass1234')
         visit '/'
+        save_and_open_page
     end 
 
     it 'has a header' do
@@ -34,4 +35,11 @@ RSpec.describe 'Landing Page' do
             expect(page).to have_content(user2.email)
         end     
     end 
+
+    it 'has a log in link' do 
+        visit '/'
+
+        click_link "Log In"
+        expect(current_path).to eq(login_path)
+    end  
 end
