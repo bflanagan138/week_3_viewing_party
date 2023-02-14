@@ -12,7 +12,6 @@ RSpec.describe "User Registration" do
     
     expect(current_path).to eq(user_path(User.last.id))
     expect(page).to have_content("User One's Dashboard")
-    
   end 
 
   it 'does not create a user if email isnt unique' do 
@@ -40,10 +39,18 @@ RSpec.describe "User Registration" do
     click_button 'Create New User'
     expect(current_path).to eq(register_path)
     expect(page).to have_content("Password can't be blank")
-    
     fill_in :user_name, with: 'User Two'
     fill_in :user_email, with:'notunique@example.com'
     fill_in :user_password, with:'password123'
+   
+    click_button 'Create New User'    
+    expect(current_path).to eq(register_path)
+    expect(page).to have_content("Password confirmation doesn't match Password")
+
+    fill_in :user_name, with: 'User Two'
+    fill_in :user_email, with:'notunique@example.com'
+    fill_in :user_password, with:'password123'
+    fill_in :user_password_confirmation, with:'password1234'
     click_button 'Create New User'    
     expect(current_path).to eq(register_path)
     expect(page).to have_content("Password confirmation doesn't match Password")
